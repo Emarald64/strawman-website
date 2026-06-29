@@ -13,6 +13,7 @@
             var face
             var extened_animatintion=false
             var housebroken=false
+            var battery_manager
             function screen_clicked(){
                 var face=document.getElementById("face")
                 if (clicksound.paused){
@@ -94,23 +95,25 @@
                 }
             }
 
-            function onload(){
+            async function onload(){
                if (navigator.getBattery){
-                    navigator.getBattery().then(battery=>{
-                        battery.chargingchange.addEventListener("chargingchange", (event) => {
-                            extened_animatintion=true
-                            horniess=3
-                            screen_clicked()
-                        })
-                    })
-               }
+                battery_manager= await navigator.getBattery()
+                battery_manager.addEventListener("chargingchange", () => {
+                    extened_animatintion=true
+                    horniess=3
+                    dontstopsound.src="sounds/x33.wav";
+                    dontstopsound.play()
+                    screen_clicked()
+                })
+                }
             }
         </script>
+        <meta http-equiv="Permissions-Policy" content="battery=()">
         <title>Strawman</title>
         <link rel="icon" href="strawman_icons.png">
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body onload="onload()">
         <div id="screen" onclick="screen_clicked()">
             <div id="face">
                 <div id="blush"></div>
