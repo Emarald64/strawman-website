@@ -32,6 +32,8 @@
                 if (housebroken){
                     face.style.backgroundPosition =(Math.floor(Math.random()*3)+1).toString()+"00% 0"
                 }else{
+                    let blush= document.getElementById("blush")
+                    blush.style.opacity=(Math.min(horniess,1)*100).toString()+"%"
                     face.style.backgroundPosition ="100% 0"
                 }
                 face.style.alignSelf="flex-start"
@@ -100,6 +102,10 @@
                 battery_manager= await navigator.getBattery()
                 battery_manager.addEventListener("chargingchange", () => {
                     extened_animatintion=true
+                    if (!housebroken){
+                        let blush= document.getElementById("blush")
+                        blush.style.opacity="100%"
+                    }
                     horniess=3
                     dontstopsound.src="sounds/x33.wav";
                     dontstopsound.play()
