@@ -1,13 +1,14 @@
 
 #face{
     aspect-ratio: 1;
-    width:100%;
+    width:90%;
     background-image: url("strawman_face.png");
     background-size: cover;
     image-rendering: crisp-edges;
     position:relative;
     margin-top: 10px;
     align-self: flex-end;
+    max-width: 50vh;
 }
 #face.housebroken{
     background-image: url("housebroken_face.png");
@@ -20,6 +21,7 @@
     display: flex;
     overflow: hidden;
     image-rendering: crisp-edges;
+    justify-content: center;
 }
 #screen.housebroken{
     background-color: black;
