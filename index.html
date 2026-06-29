@@ -84,6 +84,8 @@
                 horniess=0
                 let blush= document.getElementById("blush")
                 blush.style.opacity="0%"
+                let favicon=document.getElementById("favicon")
+                let title=document.getElementById("title")
                 if (housebroken){
                     screen.classList.add("housebroken")
                     face.classList.add("housebroken")
@@ -91,9 +93,13 @@
                         clearInterval(horniessInterval)
                         horniessInterval=null
                     }
+                    favicon.href="housebroken_icon.png"
+                    title.innerText="Housebroken"
                 }else{
                     screen.classList.remove("housebroken")
                     face.classList.remove("housebroken")
+                    favicon.href="strawman_icon.png"
+                    title.innerText="Strawman"
                 }
             }
 
@@ -106,7 +112,7 @@
                         let blush= document.getElementById("blush")
                         blush.style.opacity="100%"
                     }
-                    horniess=3
+                    horniess+=3
                     dontstopsound.src="sounds/x33.wav";
                     dontstopsound.play()
                     screen_clicked()
@@ -115,8 +121,8 @@
             }
         </script>
         <meta http-equiv="Permissions-Policy" content="battery=()">
-        <title>Strawman</title>
-        <link rel="icon" href="strawman_icons.png">
+        <title id="title">Strawman</title>
+        <link rel="icon" id="favicon" href="strawman_icon.png">
         <link rel="stylesheet" href="style.css">
     </head>
     <body onload="onload()">
