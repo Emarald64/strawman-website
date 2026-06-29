@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            var clicksound=new Audio("sounds/cutesquishyomg.wav")
+            var dontstopsound=new Audio("sounds/dontstop.wav")
+            const beg_sounds=["sounds/dontstop.wav","sounds/tapmeagainpls.wav"]
+            var animationInterval
+            var horniessInterval
+            var time=-1
+            var horniess=0.0
+            var beg_time=0
+            var face
+            var extened_animatintion=false
+            function screen_clicked(){
+                var face=document.getElementById("face")
+                if (clicksound.paused){
+                    clicksound.play()
+                }else{
+                    clicksound.currentTime=0
+                }
+                if (horniessInterval==null){
+                    horniessInterval=setInterval(animate_blush,100)
+                }
+                horniess+=0.2
+                if (time==-1 && animationInterval==null){
+                    animationInterval=setInterval(animate_face,50)
+                }
+                face.style.backgroundPosition ="100% 0"
+                face.style.alignSelf="flex-start"
+                time=0
+            }
+
+            function animate_face(){
+                var face=document.getElementById("face")
+                const shake_face_x_offsets=["-6.25","6.25","-3.13"]
+                if (time<3){
+                    face.style.left=shake_face_x_offsets[time].toString()+"%"
+                }
+                else if (time>=11){
+                    time=-2
+                    clearInterval(animationInterval)
+                    animationInterval=null
+                    extened_animatintion=false
+                }else if(time>=7){
+                    face.style.alignSelf="flex-end"
+                    face.style.backgroundPosition="0 0"
+                    const face_x_offsets=["-3.13","3.13","0"]
+                    face.style.left=face_x_offsets[time-7]+"px"
+                }
+                else if (time>3 && extened_animatintion){
+                    console.log(time)
+                    face.style.left=shake_face_x_offsets[(Math.floor((time-3)*4))%3].toString()+"%"
+                    time-=.75
+                }
+                time++
+            }
+
+            function animate_blush(){
+                horniess=Math.max(horniess-.1,0)
+                let blush= document.getElementById("blush")
+                blush.style.opacity=(Math.min(horniess,1)*100).toString()+"%"
+                if (horniess<=0 && time<=0){
+                    clearInterval(horniessInterval)
+                    horniessInterval=null
+                    dontstopsound.src=beg_sounds[Math.floor(Math.random() * 2)];
+                    dontstopsound.play()
+                }
+            }
+
+            function on_charging_change(){
+
+            }
+
+            function onload(){
+               if (navigator.getBattery){
+                    navigator.getBattery().then(battery=>{
+                        battery.chargingchange.addEventListener("chargingchange", (event) => {
+                            extened_animatintion=true
+                            horniess=3
+                            screen_clicked()
+                        })
+                    })
+               }
+            }
+        </script>
+        <title>Strawman</title>
+        <link rel="icon" href="strawman_icons.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="screen" onclick="screen_clicked()">
+            <div id="face">
+                <div id="blush"></div>
+            </div>
+        </div>
+        <button onclick="document.getElementById('screen').requestFullscreen()">fullscreen</button>
+    </body>
+</html>

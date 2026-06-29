@@ -1,0 +1,39 @@
+
+#face{
+    aspect-ratio: 1;
+    width:100%;
+    background-image: url("strawman_face.png");
+    background-size: cover;
+    image-rendering: crisp-edges;
+    position:relative;
+    margin-top: 10px;
+    align-self: flex-end;
+    .xd{
+        background-position: 0 32px;
+    }
+}
+
+#screen{
+    background-color: #eadade;
+    max-width: 500px;
+    aspect-ratio: 9/16;
+    display: flex;
+    overflow: hidden;
+    image-rendering: crisp-edges;
+    /* flex-direction: column; */
+    /* justify-content: flex-end; */
+}
+body{
+    margin:0;
+}
+
+#blush{
+    background-image: url("strawman_blush.png");
+    aspect-ratio: 1;
+    position:relative;
+    top:40%;
+    background-repeat: no-repeat;
+    background-size:contain ;
+    image-rendering: crisp-edges;
+    opacity: 0;
+}
