@@ -12,6 +12,7 @@
             var beg_time=0
             var face
             var extened_animatintion=false
+            var housebroken=false
             function screen_clicked(){
                 var face=document.getElementById("face")
                 if (clicksound.paused){
@@ -19,14 +20,19 @@
                 }else{
                     clicksound.currentTime=0
                 }
-                if (horniessInterval==null){
+                if (horniessInterval==null && !housebroken){
                     horniessInterval=setInterval(animate_blush,100)
                 }
                 horniess+=0.2
                 if (time==-1 && animationInterval==null){
                     animationInterval=setInterval(animate_face,50)
                 }
-                face.style.backgroundPosition ="100% 0"
+
+                if (housebroken){
+                    face.style.backgroundPosition =(Math.floor(Math.random()*3)+1).toString()+"00% 0"
+                }else{
+                    face.style.backgroundPosition ="100% 0"
+                }
                 face.style.alignSelf="flex-start"
                 time=0
             }
@@ -68,8 +74,21 @@
                 }
             }
 
-            function on_charging_change(){
-
+            function toggle_housebroken(){
+                housebroken=!housebroken
+                let screen=document.getElementById("screen")
+                let face=document.getElementById("face")
+                if (housebroken){
+                    screen.classList.add("housebroken")
+                    face.classList.add("housebroken")
+                    if (horniessInterval!=null){
+                        clearInterval(horniessInterval)
+                        horniessInterval=null
+                    }
+                }else{
+                    screen.classList.remove("housebroken")
+                    face.classList.remove("housebroken")
+                }
             }
 
             function onload(){
@@ -95,5 +114,6 @@
             </div>
         </div>
         <button onclick="document.getElementById('screen').requestFullscreen()">fullscreen</button>
+        <button onclick="toggle_housebroken()">Toggle Housebroken</button>
     </body>
 </html>

@@ -8,9 +8,9 @@
     position:relative;
     margin-top: 10px;
     align-self: flex-end;
-    .xd{
-        background-position: 0 32px;
-    }
+}
+#face.housebroken{
+    background-image: url("housebroken_face.png");
 }
 
 #screen{
@@ -20,9 +20,11 @@
     display: flex;
     overflow: hidden;
     image-rendering: crisp-edges;
-    /* flex-direction: column; */
-    /* justify-content: flex-end; */
 }
+#screen.housebroken{
+    background-color: black;
+}
+
 body{
     margin:0;
 }
